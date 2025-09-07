@@ -580,19 +580,61 @@ export const isUnderCheck = (enemyScopes, color) => {
 
 export const evalMoveAfterCheck = (enemyScopes, draggedPiece, target) => {
 
-    if (enemyScopes.length === 1) {
-        if (draggedPiece.constructor.name === "King") {
-            if (target[0] === enemyScopes.origin[0] && target[1] === enemyScopes.origin[1]) {
-                console.log("here")
-            }
-        }
-    }
+    console.log("I don't care about this project anymore")
 
-    if (enemyScopes.length === 2) {
-        console.log(2)
-    }
+    // Case 1: Double check → only king can move
+    // if (enemyScopes.length === 2) {
+    //     if (draggedPiece.constructor.name !== "King") {
+    //         return false // only king can move in double check
+    //     }
+    //     // king move must not land on attacked square
+    //     return !enemyScopes.some(scope =>
+    //         Array.isArray(scope.activeScope[0])
+    //             ? scope.activeScope.some(coord => coord[0] === target[0] && coord[1] === target[1])
+    //             : (scope.activeScope[0] === target[0] && scope.activeScope[1] === target[1])
+    //     )
+    // }
 
+    // // Case 2: Single check
+    // if (enemyScopes.length === 1) {
+    //     const attacker = enemyScopes[0]
+
+    //     // If king is moving
+    //     if (draggedPiece.constructor.name === "King") {
+    //         // King can capture attacker
+    //         if (target[0] === attacker.origin[0] && target[1] === attacker.origin[1]) {
+    //             return true
+    //         }
+    //         // King can move to any safe square (not under attack)
+    //         return !enemyScopes.some(scope =>
+    //             Array.isArray(scope.activeScope[0])
+    //                 ? scope.activeScope.some(coord => coord[0] === target[0] && coord[1] === target[1])
+    //                 : (scope.activeScope[0] === target[0] && scope.activeScope[1] === target[1])
+    //         )
+    //     }
+
+    //     // If another piece is moving
+    //     else {
+    //         // Can capture the attacker
+    //         if (target[0] === attacker.origin[0] && target[1] === attacker.origin[1]) {
+    //             return true
+    //         }
+
+    //         // Can block the attacker (only for sliding pieces: R, B, Q)
+    //         if (Array.isArray(attacker.activeScope)) {
+    //             return attacker.activeScope.some(coord =>
+    //                 coord[0] === target[0] && coord[1] === target[1]
+    //             )
+    //         }
+
+    //         return false
+    //     }
+    // }
+
+    // // Case 3: No check → move is normal
+    // return true
 }
+
 
 
 export const domQuery = (file, rank) => (document.querySelector(`[square-id="${file}${rank}"]`))

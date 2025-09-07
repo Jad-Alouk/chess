@@ -96,77 +96,60 @@ function dragDrop(e) {
         e.currentTarget.classList.contains(draggedPiece.color) // Player can't take own pieces
     ) return
 
+    // if (kingUnderCheck.length > 0) {
+    //     const legal = evalMoveAfterCheck(kingUnderCheck, draggedPiece, [file, rank])
+    //     if (!legal) {
+    //         console.warn("Illegal move while under check")
+    //         e.preventDefault()
+    //         return
+    //     }
+    // }
 
-    switch (draggedPiece.constructor.name) {
 
-        case "Pawn":
+    const pieceType = draggedPiece.constructor.name;
 
-            const checkEnPassant = draggedPiece.checkEnPassant(
-                history,
-                draggedPiece,
-                file,
-                rank,
-                currentPos
-            )
-            enPassant = checkEnPassant
-            move["enPassant"] = checkEnPassant
+    if (pieceType === "Pawn") {
+        const checkEnPassant = draggedPiece.checkEnPassant(
+            history,
+            draggedPiece,
+            file,
+            rank,
+            currentPos
+        );
+        enPassant = checkEnPassant;
+        move["enPassant"] = checkEnPassant;
 
-            if (!enPassant) {
-                const movePurpose = e.currentTarget.firstChild ? "toCapture" : "toMove"
-                const target = [file, rank]
-                const isWhite = draggedPiece.color === "white" ? true : false
+        if (!enPassant) {
+            const movePurpose = e.currentTarget.firstChild ? "toCapture" : "toMove";
+            const target = [file, rank];
+            const isWhite = draggedPiece.color === "white";
 
-                if (!draggedPiece.checkIfLegal(movePurpose, target, isWhite)) return
-            }
+            if (!draggedPiece.checkIfLegal(movePurpose, target, isWhite)) return;
+        }
 
-            move["promotion"] = false
-            if (draggedPiece.checkPromotion(rank, draggedPiece.color)) {
-                promotionMenu.classList.remove("hidden")
-                promotionMenu.classList.add("visible")
-                promotionMenu.classList.add(draggedPiece.color)
-                move["promotion"] = true
-            }
-
-            break
-
-        case "King":
-
-            if (!draggedPiece.checkIfLegal([file, rank])) return
-
-            break
-
-        case "Queen":
-
-            if (!draggedPiece.checkIfLegal([file, rank])) return
-
-            break
-
-        case "Rook":
-
-            if (!draggedPiece.checkIfLegal([file, rank])) return
-
-            break
-
-        case "Knight":
-
-            if (!draggedPiece.checkIfLegal([file, rank])) return
-
-            break
-
-        case "Bishop":
-
-            if (!draggedPiece.checkIfLegal([file, rank])) return
-
-            break
-
-        default:
-            break
+        move["promotion"] = false;
+        if (draggedPiece.checkPromotion(rank, draggedPiece.color)) {
+            promotionMenu.classList.remove("hidden");
+            promotionMenu.classList.add("visible", draggedPiece.color);
+            move["promotion"] = true;
+        }
+    } else {
+        // Shared logic for all other pieces
+        if (!draggedPiece.checkIfLegal([file, rank])) return;
     }
+
 
 
     if (kingUnderCheck.length > 0) {
+        // const legal = evalMoveAfterCheck(kingUnderCheck, draggedPiece, [file, rank])
+        // if (!legal) {
+        //     e.preventDefault()
+        //     return
+        // }
+
         evalMoveAfterCheck(kingUnderCheck, draggedPiece, [file, rank])
     }
+
 
 
     // Remove piece functionality from the origin square
@@ -218,5 +201,4 @@ function dragDrop(e) {
     playerTurn = playerTurn === "white" ? "black" : "white"
     move = {}
     enPassant = false
-    console.log(kingUnderCheck)
 }

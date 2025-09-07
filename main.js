@@ -181,7 +181,7 @@ function dragDrop(e) {
     move["color"] = draggedPiece.color
     move["purpose"] = targetSquare.firstChild ? "toCapture" : "toMove"
     enPassant ? move["purpose"] = "toCapture" : move["purpose"] = "toMove"
-    history.push(move)
+    history.push(Object.assign({}, move))
 
     // Add piece functionality for the targeted square
     targetSquare.setAttribute("draggable", true)
@@ -209,7 +209,7 @@ function dragDrop(e) {
     draggedPiece.currentPos = [file, rank]
     allScopes = getAllScopes()
     if (draggedPiece.color === "white") {
-        kingUnderCheck = isUnderCheck(allScopes.whiteScopes, "balck")
+        kingUnderCheck = isUnderCheck(allScopes.whiteScopes, "black")
     } else {
         kingUnderCheck = isUnderCheck(allScopes.blackScopes, "white")
     }

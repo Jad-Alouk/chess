@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(26, 24, 24);
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameBoard {
+    width: 600px;
+    height: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.square {
+    height: 75px;
+    width: 75px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.square svg {
+    height: 45px;
+    width: 45px;
+    margin: 5px;
+    position: relative;
+}
+
+path {
+    position: relative;
+    z-index: -10;
+}
+
+.promotionMenu {
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 150px);
+    width: 300px;
+    height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.promoOption {
+    width: 50%;
+    height: 50%;
+    background-color: rgb(57, 57, 57);
+    border: none;
+}
+
+.promoOption:hover {
+    background-color: rgb(90, 90, 90);
+}
+
+.promoOption svg {
+    height: 60px;
+    width: 60px;
+    margin: 5px;
+    position: relative;
+}
+
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: flex;
+}
+
+.light {
+    background-color: rgb(100, 130, 200);
+}
+
+.dark {
+    background-color: rgb(70, 60, 110);
+}
+
+.black {
+    fill: rgb(0, 0, 0)
+}
+
+.white {
+    fill: rgb(255, 255, 255)
+}
